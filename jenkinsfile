@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Code') {
+            steps {
+                git 'https://github.com/Sakshipadgham123/jenkinspipeline.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh 'docker build -t jenkinspipeline .'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add your test command here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying app...'
+                sh 'docker run -d -p 80:3000 jenkinspipeline'
+            }
+        }
+    }
+}
